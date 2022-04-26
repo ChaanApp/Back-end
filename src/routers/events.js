@@ -75,11 +75,13 @@ router.post("/:id", async (request, response) => {
 router.patch("/:id", async (request, response) => {
   try {
     const idEvent = request.params.id;
-    const dataEvent = request.body;
-    const eventUpdate = await events.patchById(idEvent, dataEvent);
+    const eventData = request.body;
+    const { authorization: token } = request.headers;
+    const tokenData = jwt.decode(token);
+    const userId = tokenData.id;
+    const eventUpdate = await events.patchById(idEvent, eventData, userId);
 
     if (!eventUpdate) throw new Error("Event not found");
-
     response.json({
       success: true,
       message: "Event update",
@@ -98,7 +100,11 @@ router.patch("/:id", async (request, response) => {
 router.delete("/:id", async (request, response) => {
   try {
     const idEvent = request.params.id;
-    const eventDeleted = await events.deleteById(idEvent);
+    const eventData = request.body;
+    const { authorization: token } = request.headers;
+    const tokenData = jwt.decode(token);
+    const userId = tokenData.id;
+    const eventDeleted = await events.deleteById(idEvent, eventData, userId);
 
     if (!eventDeleted) throw new Error("Event not found");
 
