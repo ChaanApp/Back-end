@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Event = require("../models/events");
 
 function getAllEvents() {
@@ -8,28 +9,11 @@ function getAllEvents() {
   });
 }
 
-function createEvent(eventData) {
-  const {
-    eventType,
-    eventName,
-    eventNameHost1,
-    eventNameHost2,
-    eventDate,
-    eventInvitation,
-    eventLocation,
-    eventDressCode,
-    eventNumInvitee,
-  } = eventData;
+function createEventById(eventData, userId) {
+  console.log("estoy en eventById");
   return Event.create({
-    eventType,
-    eventName,
-    eventNameHost1,
-    eventNameHost2,
-    eventDate,
-    eventInvitation,
-    eventLocation,
-    eventDressCode,
-    eventNumInvitee,
+    ...eventData,
+    organizer: userId,
   });
 }
 function getById(idEvent) {
@@ -46,4 +30,10 @@ function deleteById(idEvent) {
   return Event.findByIdAndDelete(idEvent);
 }
 
-module.exports = { getAllEvents, createEvent, getById, patchById, deleteById };
+module.exports = {
+  getAllEvents,
+  createEventById,
+  getById,
+  patchById,
+  deleteById,
+};

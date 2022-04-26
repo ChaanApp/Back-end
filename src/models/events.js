@@ -35,7 +35,7 @@ const eventsSchema = new mongoose.Schema({
   },
   eventDate: {
     type: Date,
-    default: Date.now,
+    /*default: Date.now,*/
     required: true,
     trim: true,
   },
