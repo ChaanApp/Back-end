@@ -22,7 +22,7 @@ const eventsSchema = new mongoose.Schema({
   },
   eventNameHost1: {
     type: String,
-    required: true,
+    required: false,
     minlength: 3,
     maxlength: 30,
     trim: true,
@@ -41,7 +41,7 @@ const eventsSchema = new mongoose.Schema({
   },
   eventInvitation: {
     type: String,
-    required: true,
+    required: false,
     enum: ["invitation01", "invitation02", "invitation03"],
     default: "invitacion01",
   },
@@ -55,7 +55,7 @@ const eventsSchema = new mongoose.Schema({
   },
   eventNumInvitee: {
     type: Number,
-    required: true,
+    required: false,
     min: 2,
     max: 500,
     trim: true,

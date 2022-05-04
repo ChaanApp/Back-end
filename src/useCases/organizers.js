@@ -58,7 +58,11 @@ async function login(email, password) {
   if (!isValidPassword) throw new Error("Invalid credentials");
 
   // regresar
-  return jwt.sign({ id: organizerFound._id });
+  //return jwt.sign({ id: organizerFound._id });
+  return {
+    id: organizerFound._id,
+    token: jwt.sign({ id: organizerFound._id }),
+  };
 }
 
 module.exports = {

@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const organizerSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: false,
     minlength: 3,
     maxlength: 50,
     trim: true,
   },
   lastName: {
     type: String,
-    required: true,
+    required: false,
     minlength: 2,
     maxlength: 50,
     trim: true,
@@ -27,7 +27,7 @@ const organizerSchema = new mongoose.Schema({
 
   city: {
     type: String,
-    required: true,
+    required: false,
     minlength: 3,
     maxlength: 20,
     trim: true,
@@ -35,14 +35,14 @@ const organizerSchema = new mongoose.Schema({
 
   country: {
     type: String,
-    required: true,
+    required: false,
     minlength: 3,
     maxlength: 20,
     trim: true,
   },
   telephone: {
     type: Number,
-    required: true,
+    required: false,
     minlength: 2,
     maxlength: 20,
     trim: true,

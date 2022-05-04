@@ -19,16 +19,16 @@ const eventInviteesSchema = new mongoose.Schema({
   },
   asignedTicketsInvitee: {
     type: Number,
-    required: true,
+    required: false,
     trim: true,
   },
   confirmedTicketsInvitee: {
     type: Number,
-    trim: true,
+    trim: false,
   },
   pendingConfirmationInvitee: {
     type: Number,
-    trim: true,
+    trim: false,
   },
   sendInvitationInvitee: {
     type: Boolean,
