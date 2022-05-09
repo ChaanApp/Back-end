@@ -44,7 +44,7 @@ router.get("/organizer", auth, async (request, response) => {
     response.status(400);
     response.json({
       success: false,
-      message: "Error at get all events by id",
+      message: `Error at get all events by id, ${error}`,
     });
   }
 });
