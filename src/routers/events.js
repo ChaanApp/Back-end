@@ -26,11 +26,34 @@ router.get("/", async (request, response) => {
   }
 });
 
-router.use(auth);
-router.get("/:id", async (request, response) => {
+//router.use(auth);
+router.get("/organizer", auth, async (request, response) => {
   try {
+    // const organizer = request.params.id_organizer;
+    //userCurrent!!!!! y ya no se usa el otro
+    const organizer = request.userCurrent;
+    const getAllEventsById = await events.getllEventsById(organizer);
+    response.json({
+      success: true,
+      message: "All events organizer by id",
+      data: {
+        events: getAllEventsById,
+      },
+    });
+  } catch (error) {
+    response.status(400);
+    response.json({
+      success: false,
+      message: "Error at get all events by id",
+    });
+  }
+});
+
+router.get("/:id", auth, async (request, response) => {
+  try {
+    const organizer = request.userCurrent;
     const idEvent = request.params.id;
-    const eventFound = await events.getById(idEvent);
+    const eventFound = await events.getById(idEvent, organizer);
     if (!eventFound) throw new Error("Event not found");
 
     response.json({
@@ -49,13 +72,14 @@ router.get("/:id", async (request, response) => {
   }
 });
 
-router.post("/:id", async (request, response) => {
+router.post("/:id", auth, async (request, response) => {
   try {
+    const organizer = request.userCurrent;
     const eventData = request.body;
-    const { authorization: token } = request.headers;
-    const tokenData = jwt.decode(token);
-    const userId = tokenData.id;
-    const eventCreated = await events.createEventById(eventData, userId);
+    //const { authorization: token } = request.headers;
+    //const tokenData = jwt.decode(token);
+    //const userId = tokenData.id;
+    const eventCreated = await events.createEventById(eventData, organizer);
 
     response.json({
       success: true,
@@ -65,21 +89,22 @@ router.post("/:id", async (request, response) => {
       },
     });
   } catch (error) {
-    response.status(400);
+    //response.status(400);
     response.json({
       success: false,
-      message: "Event not create",
+      message: `Event not create, ${error}`,
     });
   }
 });
-router.patch("/:id", async (request, response) => {
+router.patch("/:id", auth, async (request, response) => {
   try {
+    const organizer = request.userCurrent;
     const idEvent = request.params.id;
     const eventData = request.body;
-    const { authorization: token } = request.headers;
-    const tokenData = jwt.decode(token);
-    const userId = tokenData.id;
-    const eventUpdate = await events.patchById(idEvent, eventData, userId);
+    //const { authorization: token } = request.headers;
+    //const tokenData = jwt.decode(token);
+    //const userId = tokenData.id;
+    const eventUpdate = await events.patchById(idEvent, eventData, organizer);
 
     if (!eventUpdate) throw new Error("Event not found");
     response.json({
@@ -97,14 +122,15 @@ router.patch("/:id", async (request, response) => {
     });
   }
 });
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", auth, async (request, response) => {
   try {
+    const organizer = request.userCurrent;
     const idEvent = request.params.id;
     const eventData = request.body;
-    const { authorization: token } = request.headers;
-    const tokenData = jwt.decode(token);
-    const userId = tokenData.id;
-    const eventDeleted = await events.deleteById(idEvent, eventData, userId);
+    //const { authorization: token } = request.headers;
+    //const tokenData = jwt.decode(token);
+    //const userId = tokenData.id;
+    const eventDeleted = await events.deleteById(idEvent, eventData, organizer);
 
     if (!eventDeleted) throw new Error("Event not found");
 

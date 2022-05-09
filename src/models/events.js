@@ -2,9 +2,31 @@ const mongoose = require("mongoose");
 const adressSchema = require("./eventsLocation");
 
 const eventsSchema = new mongoose.Schema({
-  eventOrganizer: {
+  organizer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "organizer",
+  },
+
+  eventType: {
+    type: String,
+    required: true,
+    trim: true,
+    enum: [
+      "Boda",
+      "Cumpleaños",
+      "Bautizo",
+      "Baby Shower",
+      "Graduación",
+      "Concierto",
+      "Exposición",
+      "Quince Años",
+      "Clase",
+      "Deportivo",
+      "Conferencia",
+      "Esparcimiento",
+      "undefined",
+    ],
+    default: "Boda",
   },
   eventName: {
     type: String,
@@ -13,46 +35,36 @@ const eventsSchema = new mongoose.Schema({
     maxlength: 30,
     trim: true,
   },
-  eventType: {
+  detailsEvent: {
     type: String,
     required: true,
-    trim: true,
-    enum: ["wedding", "birthday", "christening", "babyShower"],
-    default: "wedding",
-  },
-  eventNameHost1: {
-    type: String,
-    required: false,
     minlength: 3,
-    maxlength: 30,
+    maxlength: 200,
     trim: true,
   },
-  eventNameHost2: {
+  eventDressCode: {
     type: String,
-    minlength: 3,
-    maxlength: 30,
+    enum: ["Formal", "Informal", "Casual", "Negocios", "Coktail", "undefined"],
+    required: true,
     trim: true,
+    default: "Formal",
   },
   eventDate: {
-    type: Date,
+    type: String,
     /*default: Date.now,*/
     required: true,
     trim: true,
   },
-  eventInvitation: {
+  timeDate: {
     type: String,
-    required: false,
-    enum: ["invitation01", "invitation02", "invitation03"],
-    default: "invitacion01",
-  },
-  eventLocation: adressSchema,
-  eventDressCode: {
-    type: String,
-    enum: ["formal", "informal", "casual", "business", "coktail"],
-    default: "formal",
+    /*default: Date.now,*/
     required: true,
     trim: true,
   },
+
+  //Ubicacion !!!!!
+  eventLocation: adressSchema,
+
   eventNumInvitee: {
     type: Number,
     required: false,
@@ -60,6 +72,7 @@ const eventsSchema = new mongoose.Schema({
     max: 500,
     trim: true,
   },
+
   invitees: [
     {
       type: mongoose.Schema.Types.ObjectId,

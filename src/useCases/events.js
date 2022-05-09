@@ -9,6 +9,11 @@ function getAllEvents() {
   });
 }
 
+function getllEventsById(userId) {
+  console.log("estoy en findeAllEventsById");
+  return Event.find({organizer: userId}).populate("invitees", );
+}
+
 function createEventById(eventData, userId) {
   console.log("estoy en eventById");
   return Event.create({
@@ -23,6 +28,7 @@ function getById(idEvent) {
     asignedTicketsInvitee: 1,
   });
 }
+
 function patchById(idEvent, dataEvent) {
   return Event.findByIdAndUpdate(idEvent, dataEvent, { new: true });
 }
@@ -32,6 +38,7 @@ function deleteById(idEvent) {
 
 module.exports = {
   getAllEvents,
+  getllEventsById,
   createEventById,
   getById,
   patchById,
