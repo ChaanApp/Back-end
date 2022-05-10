@@ -22,32 +22,6 @@ const eventInviteesSchema = new mongoose.Schema({
     required: false,
     trim: true,
   },
-  confirmedTicketsInvitee: {
-    type: Number,
-    trim: false,
-  },
-  pendingConfirmationInvitee: {
-    type: Number,
-    trim: false,
-  },
-  sendInvitationInvitee: {
-    type: Boolean,
-    trim: true,
-    default: false,
-  },
-  confirmInvitees: {
-    type: Number,
-    trim: true,
-  },
-  sentInvitations: {
-    type: Boolean,
-    trim: true,
-    default: false,
-  },
-  pendingInvitations: {
-    type: Number,
-    trim: true,
-  },
 });
 
 const model = mongoose.model("eventInvitees", eventInviteesSchema);
