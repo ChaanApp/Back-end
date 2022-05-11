@@ -11,7 +11,7 @@ function getAllEvents() {
 
 function getllEventsById(userId) {
   console.log("estoy en findeAllEventsById");
-  return Event.find({organizer: userId}).populate("invitees", );
+  return Event.find({ organizer: userId }).populate("invitees");
 }
 
 function createEventById(eventData, userId) {
@@ -29,7 +29,7 @@ function getById(idEvent) {
   });
 }
 
-function patchById(idEvent, dataEvent) {
+function putById(idEvent, dataEvent) {
   return Event.findByIdAndUpdate(idEvent, dataEvent, { new: true });
 }
 function deleteById(idEvent) {
@@ -41,6 +41,6 @@ module.exports = {
   getllEventsById,
   createEventById,
   getById,
-  patchById,
+  putById,
   deleteById,
 };
