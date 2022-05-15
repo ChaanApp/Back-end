@@ -96,7 +96,7 @@ router.post("/:id", auth, async (request, response) => {
     });
   }
 });
-router.patch("/:id", auth, async (request, response) => {
+router.put("/:id", auth, async (request, response) => {
   try {
     const organizer = request.userCurrent;
     const idEvent = request.params.id;
@@ -104,7 +104,7 @@ router.patch("/:id", auth, async (request, response) => {
     //const { authorization: token } = request.headers;
     //const tokenData = jwt.decode(token);
     //const userId = tokenData.id;
-    const eventUpdate = await events.patchById(idEvent, eventData, organizer);
+    const eventUpdate = await events.putById(idEvent, eventData, organizer);
 
     if (!eventUpdate) throw new Error("Event not found");
     response.json({
