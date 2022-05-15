@@ -37,7 +37,7 @@ const eventInviteesSchema = new mongoose.Schema({
   },
   confirmInvitees: {
     type: Number,
-    trim: true,
+    trim: false,
   },
   sentInvitations: {
     type: Boolean,
@@ -46,7 +46,7 @@ const eventInviteesSchema = new mongoose.Schema({
   },
   pendingInvitations: {
     type: Number,
-    trim: true,
+    trim: false,
   },
 });
 
